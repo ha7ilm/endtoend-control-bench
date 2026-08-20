@@ -12,7 +12,7 @@ debugging a reproduction:
   Bubblewrap launchers used to enforce the agent information boundary.
 - [Artifacts and analysis](artifacts-and-analysis.md): directory layouts, file
   schemas, matching rules, analysis tools, and generated outputs.
-- [Developments since paper](docs/developments-since-paper.md): documenting main changes since our [paper](https://research.retzler.hu/bench_llm_ctl_2026/) has been published. 
+- [Developments since paper](developments-since-paper.md): documenting main changes since our [paper](https://research.retzler.hu/bench_llm_ctl_2026/) has been published. 
 - [Troubleshooting](troubleshooting.md): symptoms, causes, diagnostics, and safe
   recovery guidance.
 
