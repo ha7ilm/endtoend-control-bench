@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the conference presentation below."
+title: "urletra: Benchmarking end-to-end control design with LLM coding agents"
+type: software
+authors:
+  - family-names: Retzler
+    given-names: András
+    email: andras.retzler@ugent.be
+    affiliation: "Dynamic Design Lab (D²LAB), Ghent University; core-lab MIRO, FlandersMake@UGent"
+  - family-names: Lefebvre
+    given-names: Tom
+    affiliation: "Dynamic Design Lab (D²LAB), Ghent University; core-lab MIRO, FlandersMake@UGent"
+  - family-names: Crevecoeur
+    given-names: Guillaume
+    affiliation: "Dynamic Design Lab (D²LAB), Ghent University; core-lab MIRO, FlandersMake@UGent"
+version: 0.1.0
+repository-code: "https://github.com/ha7ilm/endtoend-control-bench"
+preferred-citation:
+  type: slides
+  title: "Benchmarking end-to-end control design with LLM coding agents should be a continuous effort"
+  authors:
+    - family-names: Retzler
+      given-names: András
+      email: andras.retzler@ugent.be
+      affiliation: "Dynamic Design Lab (D²LAB), Ghent University; core-lab MIRO, FlandersMake@UGent"
+    - family-names: Lefebvre
+      given-names: Tom
+      affiliation: "Dynamic Design Lab (D²LAB), Ghent University; core-lab MIRO, FlandersMake@UGent"
+    - family-names: Crevecoeur
+      given-names: Guillaume
+      affiliation: "Dynamic Design Lab (D²LAB), Ghent University; core-lab MIRO, FlandersMake@UGent"
+  conference:
+    name: "The 23rd World Congress of the International Federation of Automatic Control"
+    date-start: "2026-08-23"
+    date-end: "2026-08-28"
+    location: "BEXCO, Busan, Republic of Korea"
+  year: 2026

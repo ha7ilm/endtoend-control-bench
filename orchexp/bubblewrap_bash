@@ -1,0 +1,26 @@
+#sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+#sudo sysctl -w kernel.unprivileged_userns_clone=1
+
+PROJECT_DIR="$PWD"
+bwrap \
+--ro-bind /usr /usr \
+--ro-bind /lib /lib \
+--ro-bind /lib64 /lib64 \
+--ro-bind /bin /bin \
+--ro-bind /etc/resolv.conf /etc/resolv.conf \
+--ro-bind /etc/hosts /etc/hosts \
+--ro-bind /etc/ssl /etc/ssl \
+--ro-bind /etc/passwd /etc/passwd \
+--ro-bind /etc/group /etc/group \
+--ro-bind "$HOME/.gitconfig" "$HOME/.gitconfig" \
+--bind "$PROJECT_DIR" "$PROJECT_DIR" \
+--bind "$HOME/.codex" "$HOME/.codex" \
+--ro-bind "$HOME/.nvm" "$HOME/.nvm" \
+--tmpfs /tmp \
+--proc /proc \
+--dev /dev \
+--unshare-all \
+--share-net \
+--die-with-parent \
+--chdir "$PROJECT_DIR" \
+/bin/bash

@@ -1,0 +1,14 @@
+{
+  "opus46high": {
+    "long_name": "Claude Opus 4.6 (high)",
+    "short_name": "Opus 4.6",
+    "very_short_name": "Opus",
+    "color": "blue"
+  },
+  "codex53xhigh": {
+    "long_name": "GPT-5.3 Codex (xhigh)",
+    "short_name": "Codex 5.3",
+    "very_short_name": "Codex",
+    "color": "red"
+  }
+}

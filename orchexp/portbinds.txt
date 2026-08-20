@@ -1,0 +1,10 @@
+# setup port
+aircraftpitch_dt 9001
+ballandbeam_dt 9002
+cruisecontrol_dt 9003
+invertedpendulum_dt 9004
+motorspeed_dt 9005
+ballandbeam_dt_nl_act_mg996r 9006
+cruisecontrol_dt_lim_hondajazz 9007
+invertedpendulum_dt_nl_lim_quanserip02 9008
+motorspeed_dt_lim_maxonre30 9009

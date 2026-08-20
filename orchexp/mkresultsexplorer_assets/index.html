@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Results Explorer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link id="bootstrap-css" rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link id="hljs-css" rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css">
+</head>
+<body>
+  <div id="app-shell">
+    <header id="top-bar">
+      <button id="sidebar-toggle" title="Toggle sidebar">&#9776;</button>
+      <h1 id="app-title">Results Explorer</h1>
+      <a
+        id="paper-link"
+        href=".."
+        title="Benchmarking end-to-end control design with LLM coding agents should be a continuous effort - Andras Retzler, Tom Lefebvre, Guillaume Crevecoeur"
+      >Benchmarking end-to-end control design with LLM coding agents should be a continuous effort<br>Andras Retzler, Tom Lefebvre, Guillaume Crevecoeur</a>
+      <nav id="tabs">
+        <button class="tab-btn" data-tab="A" title="Cumulative-minimum curve per attempt">Design&nbsp;progress</button>
+        <button class="tab-btn" data-tab="P" title="Prompt and input markdown files for the selected attempt">LLM&nbsp;prompt</button>
+        <button class="tab-btn" data-tab="B" title="Normalized agent log viewer">LLM&nbsp;thinking</button>
+        <button class="tab-btn" data-tab="C" title="Controller code viewer with description">Controller&nbsp;code</button>
+        <button class="tab-btn" data-tab="D" title="Step response plots (Plotly)">Step&nbsp;response</button>
+      </nav>
+    </header>
+    <main id="main">
+      <aside id="sidebar">
+        <div class="listbox" data-group="agent">
+          <div class="listbox-header">
+            <button class="collapse-btn" data-group="agent">&#9660;</button>
+            <span class="listbox-title">Agent</span>
+          </div>
+          <div class="listbox-body"></div>
+        </div>
+        <div class="listbox" data-group="plant">
+          <div class="listbox-header">
+            <button class="collapse-btn" data-group="plant">&#9660;</button>
+            <span class="listbox-title">Plant</span>
+          </div>
+          <div class="listbox-body"></div>
+        </div>
+        <div class="listbox" data-group="attempt">
+          <div class="listbox-header">
+            <button class="collapse-btn" data-group="attempt">&#9660;</button>
+            <span class="listbox-title">Attempt</span>
+          </div>
+          <div class="listbox-body">
+            <div id="attempt-filters" class="inline-filters"></div>
+            <div class="checklist"></div>
+          </div>
+        </div>
+        <div class="listbox" data-group="graph-settings">
+          <div class="listbox-header">
+            <button class="collapse-btn" data-group="graph-settings">&#9660;</button>
+            <span class="listbox-title">Graph settings</span>
+          </div>
+          <div class="listbox-body">
+            <div id="graph-settings-filters" class="inline-filters"></div>
+          </div>
+        </div>
+        <div class="listbox" data-group="iteration">
+          <div class="listbox-header">
+            <button class="collapse-btn" data-group="iteration">&#9660;</button>
+            <span class="listbox-title">Iteration</span>
+          </div>
+          <div class="listbox-body">
+            <div id="iteration-filters" class="inline-filters"></div>
+            <div class="iteration-table-wrap"></div>
+          </div>
+        </div>
+      </aside>
+      <section id="content">
+        <div class="tab-panel" data-tab="A">
+          <div id="tab-a-plot"></div>
+          <div id="tab-a-table"></div>
+        </div>
+        <div class="tab-panel" data-tab="P">
+          <div id="tab-p-content"></div>
+        </div>
+        <div class="tab-panel" data-tab="B">
+          <div id="tab-b-content"></div>
+        </div>
+        <div class="tab-panel" data-tab="C">
+          <div id="tab-c-scroll">
+            <div id="tab-c-heading"></div>
+            <pre><code id="tab-c-code" class="language-python"></code></pre>
+            <div id="tab-c-meta"></div>
+          </div>
+        </div>
+        <div class="tab-panel" data-tab="D">
+          <div id="tab-d-plot"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]]
+        },
+        options: {
+          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+      };
+      var cdnScripts = [
+        "https://cdn.plot.ly/plotly-2.35.2.min.js",
+        "https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js",
+        "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js",
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js",
+        "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/python.min.js",
+        "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/bash.min.js",
+        "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/json.min.js",
+        "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/diff.min.js"
+      ];
+      var vendorScripts = [
+        "js/vendor/plotly.min.js",
+        "js/vendor/marked.min.js",
+        "js/vendor/mathjax.tex-mml-chtml.js",
+        "js/vendor/bootstrap.bundle.min.js",
+        "js/vendor/highlight.min.js",
+        "js/vendor/python.min.js",
+        "js/vendor/bash.min.js",
+        "js/vendor/json.min.js",
+        "js/vendor/diff.min.js"
+      ];
+      function exists(url, cb) {
+        var xhr = new XMLHttpRequest();
+        try {
+          xhr.open("HEAD", url, true);
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) cb(xhr.status >= 200 && xhr.status < 400);
+          };
+          xhr.onerror = function () { cb(false); };
+          xhr.send();
+        } catch (e) { cb(false); }
+      }
+      function loadScripts(list, done) {
+        var i = 0;
+        function next() {
+          if (i >= list.length) return done();
+          var s = document.createElement("script");
+          s.src = list[i++];
+          s.onload = next;
+          s.onerror = next;
+          document.head.appendChild(s);
+        }
+        next();
+      }
+      exists("js/vendor/plotly.min.js", function (present) {
+        if (present) {
+          document.getElementById("bootstrap-css").href =
+            "js/vendor/bootstrap.min.css";
+          document.getElementById("hljs-css").href =
+            "js/vendor/github.min.css";
+          loadScripts(vendorScripts, bootApp);
+        } else {
+          loadScripts(cdnScripts, bootApp);
+        }
+      });
+      function bootApp() {
+        var appScripts = [
+          "js/colors.js",
+          "js/state.js",
+          "js/sidebar.js",
+          "js/tab_progress.js",
+          "js/doc_common.js",
+          "js/tab_prompt.js",
+          "js/tab_thinking.js",
+          "js/tab_code.js",
+          "js/tab_response.js",
+          "js/app.js"
+        ];
+        loadScripts(appScripts, function () {
+          if (window.ResultsExplorer && window.ResultsExplorer.boot) {
+            window.ResultsExplorer.boot();
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

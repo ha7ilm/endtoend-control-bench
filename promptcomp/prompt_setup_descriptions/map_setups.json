@@ -1,0 +1,38 @@
+{
+  "aircraftpitch_dt.md": {
+    "long_name": "Aircraft pitch (CTMS)",
+    "short_name": "CTMS aircraft pitch setup"
+  },
+  "ballandbeam_dt.md": {
+    "long_name": "Ball and beam (CTMS)",
+    "short_name": "CTMS ball and beam setup"
+  },
+  "ballandbeam_dt_nl_act_mg996r.md": {
+    "long_name": "Ball and beam (realistic, MG996R)",
+    "short_name": "Realistic ball and beam setup"
+  },
+  "cruisecontrol_dt_lim_hondajazz.md": {
+    "long_name": "Cruise control (realistic, Honda Jazz)",
+    "short_name": "Realistic cruise control setup"
+  },
+  "cruisecontrol_dt.md": {
+    "long_name": "Cruise control (CTMS)",
+    "short_name": "CTMS cruise control setup"
+  },
+  "invertedpendulum_dt.md": {
+    "long_name": "Inverted pendulum (CTMS)",
+    "short_name": "CTMS inverted pendulum setup"
+  },
+  "invertedpendulum_dt_nl_lim_quanserip02.md": {
+    "long_name": "Inverted pendulum (realistic, IP02)",
+    "short_name": "Realistic inverted pendulum setup"
+  },
+  "motorspeed_dt_lim_maxonre30.md": {
+    "long_name": "Motor speed (realistic, Maxon RE 30)",
+    "short_name": "Realistic motor speed setup"
+  },
+  "motorspeed_dt.md": {
+    "long_name": "Motor speed (CTMS)",
+    "short_name": "CTMS motor speed setup"
+  }
+}

@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "you can stop here if you don't want to destroy results/current_run/wp. press ctrl+c then."
+read 
+rm -rf results/current_run/wp
+python orchexp/prepdirs.py
