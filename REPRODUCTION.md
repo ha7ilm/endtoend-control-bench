@@ -6,7 +6,7 @@ This document reproduces the experiments in the paper [Benchmarking end-to-end c
 
 **Reference platform:** the research was run and tested on Ubuntu 24.04 LTS. Linux is required for the supplied Bubblewrap isolation. (Other Linux distributions may work, but were not the reference environment.)
 
-The commit associated with the paper is `🔴`. New developments to be implemented, in order to apply the benchmark to recent versions of coding agents, will be  recorded under [Developments since the paper](docs/developments-since-paper.md).
+The commit associated with the paper is `8d6a352d839d689fb63292dd8758f3409f962362`. New developments to be implemented, in order to apply the benchmark to recent versions of coding agents, will be  recorded under [Developments since the paper](docs/developments-since-paper.md).
 
 ## How the reproduction relates to the paper
 
